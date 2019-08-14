@@ -1,0 +1,24 @@
+server:
+  port: 8888
+spring:
+#  profiles:
+#    # 本地存储配置
+#    active: native
+#  cloud:
+#    config:
+#      server:
+        # 本地文件系统
+#        native:
+#          search-locations: classpath:licensingservice
+        # 该属性为应用程序提供了用都好分割的文件夹列表，由这些文件夹含有由配置服务器管理的属性
+          # 使用http://ip:8888/{配置文件名称（这里是licenseservice）}/{default/dev/prod}
+          #search-locations: file:///Users/baifc/my_workspace/learn/spring-micro-in-action/config-service/src/main/resources/licenseservice
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/baifucheng/micro-config
+          search-paths: licensingservice
+          username: baifucheng
+          password: bfc931014
