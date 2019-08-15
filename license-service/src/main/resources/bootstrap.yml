@@ -6,6 +6,10 @@ spring:
  cloud:
   config:
    uri: http://localhost:8888
+# Spring Boot 2.0 中的端点和之前的版本有较大不同,使用时需注意。另外端点的监控机制也有很大不同，启用了不代表可以直接访问，还需要将其暴露出来，
+# 传统的management.security管理已被标记为不推荐
+# Spring Boot2.x中，默认只开放了info、health两个端点
+# 剩余的需要自己通过配置management.endpoints.web.exposure.include属性来加载（有include自然就有exclude，不做详细概述了）。如果想单独操作某个端点可以使用management.endpoint.端点.enabled属性进行启用或禁用
 management:
  endpoints:
   web:
