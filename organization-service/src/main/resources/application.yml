@@ -1,3 +1,4 @@
+
 eureka:
   instance:
     # 注册服务IP，而不是服务器名称

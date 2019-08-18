@@ -1,0 +1,10 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    # 不使用eureka服务进行注册，本服务本身是euraka服务。防止自己注册自己
+    register-with-eureka: false
+    # eureka服务启动时，不会再本地缓存注册表信息
+    fetch-registry: false
+

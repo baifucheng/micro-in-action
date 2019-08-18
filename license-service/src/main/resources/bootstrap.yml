@@ -1,3 +1,5 @@
+server:
+ port: 8082
 spring:
  application:
   name: license-service
@@ -10,6 +12,7 @@ spring:
 # 传统的management.security管理已被标记为不推荐
 # Spring Boot2.x中，默认只开放了info、health两个端点
 # 剩余的需要自己通过配置management.endpoints.web.exposure.include属性来加载（有include自然就有exclude，不做详细概述了）。如果想单独操作某个端点可以使用management.endpoint.端点.enabled属性进行启用或禁用
+
 management:
  endpoints:
   web:
