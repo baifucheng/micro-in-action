@@ -24,7 +24,7 @@ public class LicenseFeignService {
     private String exampleProperty;
 
     @Autowired
-    private OrganizationFeignClient organizationFeignClient;
+    private OrganizationService organizationService;
 
     @Autowired
     private LicenseRepository licenseRepository;
@@ -33,7 +33,7 @@ public class LicenseFeignService {
 
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
 
-        Organization organization = organizationFeignClient.getOrganization(organizationId);
+        Organization organization = organizationService.getOrganization(organizationId);
         if (organization == null) {
             System.out.println("organization is null");
             return null;
