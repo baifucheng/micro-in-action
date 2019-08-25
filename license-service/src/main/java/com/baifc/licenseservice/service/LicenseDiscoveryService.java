@@ -31,8 +31,8 @@ public class LicenseDiscoveryService {
     @Autowired
     private LicenseRepository licenseRepository;
 
-    @Value("${example.property}")
-    private String exampleProperty;
+//    @Value("${example.property}")
+//    private String exampleProperty;
 
     public License getLicense(String organizationId, String licenseId) {
 
@@ -63,7 +63,7 @@ public class LicenseDiscoveryService {
                 .withOrganizationName(organization.getName())
                 .withContactName(organization.getContactName())
                 .withContactEmail(organization.getContactEmail())
-                .withContactPhone(organization.getContactPhone())
-                .withComment(exampleProperty);
+                .withContactPhone(organization.getContactPhone());
+//                .withComment(exampleProperty);
     }
 }

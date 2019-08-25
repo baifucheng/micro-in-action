@@ -4,9 +4,11 @@ import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.service.LicenseDiscoveryService;
 import com.baifc.licenseservice.service.LicenseFeignService;
 import com.baifc.licenseservice.service.LicenseRestService;
+import com.baifc.licenseservice.service.LicenseHystrixService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * projectName: license-service
@@ -19,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/v1/organizations/{organizationId}/licenses")
 public class LicenseController {
 
-    @Value("${example.property}")
-    private String exampleProperty;
+//    @Value("${example.property}")
+//    private String exampleProperty;
 
     @Autowired
     private LicenseDiscoveryService licenseDiscoveryService;
@@ -30,6 +32,9 @@ public class LicenseController {
 
     @Autowired
     private LicenseFeignService licenseFeignService;
+
+    @Autowired
+    private LicenseHystrixService licenseHystrixService;
 
 //    @RequestMapping(value = "/{licenseId}", method = RequestMethod.GET)
 //    public License getLicense(
@@ -50,6 +55,11 @@ public class LicenseController {
                                           @PathVariable("licenseId") String licenseId) {
 
         return licenseFeignService.getLicense(organizationId,licenseId);
+    }
+
+    @GetMapping(value = "/")
+    public List<License> getLicenseByOrganizationId(@PathVariable("organizationId") String organizationId) {
+        return licenseHystrixService.getLicensesByOrganizationId(organizationId);
     }
 
 }

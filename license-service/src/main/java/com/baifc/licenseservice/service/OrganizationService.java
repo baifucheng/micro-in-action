@@ -1,12 +1,16 @@
 package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.client.OrganizationFeignClient;
+import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.model.Organization;
+import com.baifc.licenseservice.repository.LicenseRepository;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * projectName: micro-in-action
@@ -21,6 +25,9 @@ public class OrganizationService {
 
     @Autowired
     private OrganizationFeignClient organizationFeignClient;
+
+    @Autowired
+    private LicenseRepository licenseRepository;
 
     /**
      * Hystrix将使用线程池来委派所有对远程服务的请求，默认情况下，所有的Hystrix命令，将使用一个线程池来处理请求，默认将有10个线程来处理这些请求
@@ -54,6 +61,11 @@ public class OrganizationService {
     )
     public Organization getOrganization(String organizationId) {
         return organizationFeignClient.getOrganization(organizationId);
+    }
+
+
+    public List<License> getLicenseByOrganizationId(String organizationId) {
+        return licenseRepository.findByOrganization(organizationId);
     }
 
     /**

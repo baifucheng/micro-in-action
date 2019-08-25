@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * projectName: micro-in-action
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class LicenseService {
+public class LicenseHystrixService {
 
     @Autowired
     private LicenseRepository licenseRepository;
@@ -65,9 +66,28 @@ public class LicenseService {
             }
     )
     public List<License> getLicensesByOrganizationId(String organizationId) {
+        // 模拟阻塞
+        randomlyRunLong();
         // 模拟sql调用
         return licenseRepository.findByOrganization(organizationId);
     }
+
+    private void randomlyRunLong(){
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+        if (randomNum==3) sleep();
+    }
+
+    private void sleep(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private List<License> fallBackLicenses(String organizationId) {
         License license1 = new License();

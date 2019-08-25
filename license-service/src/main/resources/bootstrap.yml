@@ -5,9 +5,9 @@ spring:
   name: license-service
  profiles:
   active: default
- cloud:
-  config:
-   uri: http://localhost:8888
+# cloud:
+#  config:
+#   uri: http://localhost:8888
 # Spring Boot 2.0 中的端点和之前的版本有较大不同,使用时需注意。另外端点的监控机制也有很大不同，启用了不代表可以直接访问，还需要将其暴露出来，
 # 传统的management.security管理已被标记为不推荐
 # Spring Boot2.x中，默认只开放了info、health两个端点

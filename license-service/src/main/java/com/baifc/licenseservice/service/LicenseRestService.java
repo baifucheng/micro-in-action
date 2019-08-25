@@ -24,8 +24,8 @@ import java.util.List;
 @Service
 public class LicenseRestService {
 
-    @Value("${example.property}")
-    private String exampleProperty;
+//    @Value("${example.property}")
+//    private String exampleProperty;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -52,8 +52,8 @@ public class LicenseRestService {
                 .withOrganizationName(organization.getName())
                 .withContactName(organization.getContactName())
                 .withContactEmail(organization.getContactEmail())
-                .withContactPhone(organization.getContactPhone())
-                .withComment(exampleProperty);
+                .withContactPhone(organization.getContactPhone());
+//                .withComment(exampleProperty);
     }
 
 }

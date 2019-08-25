@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class ConfigController {
 
-    @Value("${example.property}")
-    private String exampleProperty;
-
-    @GetMapping("/")
-    public String getExampleProperty() {
-        return exampleProperty;
-    }
+//    @Value("${example.property}")
+//    private String exampleProperty;
+//
+//    @GetMapping("/")
+//    public String getExampleProperty() {
+//        return exampleProperty;
+//    }
 }

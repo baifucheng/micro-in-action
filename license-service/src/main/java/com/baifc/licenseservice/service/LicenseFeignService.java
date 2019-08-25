@@ -10,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * projectName: spring-micro-in-action
  * packageName: com.baifc.licenseservice.service
@@ -20,8 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class LicenseFeignService {
 
-    @Value("${example.property}")
-    private String exampleProperty;
+//    @Value("${example.property}")
+//    private String exampleProperty;
 
     @Autowired
     private OrganizationService organizationService;
@@ -42,7 +44,11 @@ public class LicenseFeignService {
                 .withOrganizationName(organization.getName())
                 .withContactName(organization.getContactName())
                 .withContactEmail(organization.getContactEmail())
-                .withContactPhone(organization.getContactPhone())
-                .withComment(exampleProperty);
+                .withContactPhone(organization.getContactPhone());
+//                .withComment(exampleProperty);
     }
+
+
+
+
 }

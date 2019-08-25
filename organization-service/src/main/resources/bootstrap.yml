@@ -4,3 +4,11 @@ spring:
 
 server:
  port: 8081
+
+management:
+ endpoints:
+  web:
+   exposure:
+    #  注意这里*要加引号，暴露全部，也可以只暴露相应endpoint
+    include: "*"
+#    include: refresh,health,
