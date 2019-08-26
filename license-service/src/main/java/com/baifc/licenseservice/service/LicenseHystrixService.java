@@ -2,6 +2,7 @@ package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.utils.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +67,12 @@ public class LicenseHystrixService {
             }
     )
     public List<License> getLicensesByOrganizationId(String organizationId) {
+        /*
+            这里由于被@HystrixCommand注解修饰，该方法会使用一个新的线程池处理，Hystrix不会将父线程的上下文传播到子线程
+            这里如果不做处理，那么correlationId将无法传播到该方法
+            使用HystrixConcurrencyStrategy机制，则可以将父线程的上下文传播到由Hystrix所管理的线程池中
+         */
+        log.info("LicenseHystrixService getLicenseByOrganizationId--CorrelationId: {} ", UserContextHolder.getUserContext().getCorrelationId());
         // 模拟阻塞
         randomlyRunLong();
         // 模拟sql调用

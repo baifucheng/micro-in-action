@@ -10,14 +10,34 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-#zuul:
-#  routes:
-#    # 手动定义路由映射，这里不会覆盖自动映射的路由
-#    organization-service: /organization/**
-#  # 这里排除了自动映射的路由，只提供手动自定义的路由，如果要排除所有基于Eureka的路由，可以将属性设置为*
-#  ignored-services: organization-service
-#  # 添加一个前缀
-#  prefix: /api
+zuul:
+  routes:
+    # 手动定义路由映射，这里不会覆盖自动映射的路由
+    organization-service: /organization/**
+  # 这里排除了自动映射的路由，只提供手动自定义的路由，如果要排除所有基于Eureka的路由，可以将属性设置为*
+  ignored-services: organization-service
+  # 添加一个前缀
+  prefix: /api
+
+# hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds
+# 此属性可以为所有通过Zuul运行的服务设置Hystrix超时
+# 如果需要为特定服务设置Hystrix超时，可以使用需要覆盖超时的服务的Eureka服务ID名称来替换届性的default部分
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
+
+# 上面配置覆盖了Hystrix超时，但是Ribbon同样也会对超过5s的调用进行超时处理
+# 可以通过设置属性servicename.ribbon.ReadTimeout 来覆盖Ribbon超时
+organization-service:
+  ribbon:
+    ReadTimeout: 7000
+
+# 对于超过5s的配置，必须同时设置Hystrix和Ribbon超时
+
 
 # 配置一个静态路由
 #zuul:
@@ -29,14 +49,14 @@ eureka:
 # 禁用Eureka和Ribbon的集成，然后列出Ribbon将进行负载均衡的各个实例
 # 静态映射路由并在Ribbon中禁用Eureka支持会造成一个问题，那就是禁用了对通过Zuul服务网关运行的所有服务的Ribbon支持
 # 这意味这Zuul无法使用Ribbon来缓存服务的查找，zuul每次需要解析服务位置的时候都会调用Eureka，那么Eureka服务器也将承受更多的负载
-zuul:
-  routes:
-    licensestatic:
-      path: /licensestatic/**
-      serviceId: licensestatic
-ribbon:
-  eureka:
-    enabled: false
-licensestatic:
-  ribbon:
-    listOfServers: http://license-service-static:8081, http://license-service-static:8082
+#zuul:
+#  routes:
+#    licensestatic:
+#      path: /licensestatic/**
+#      serviceId: licensestatic
+#ribbon:
+#  eureka:
+#    enabled: false
+#licensestatic:
+#  ribbon:
+#    listOfServers: http://license-service-static:8081, http://license-service-static:8082

@@ -5,6 +5,8 @@ import com.baifc.licenseservice.service.LicenseDiscoveryService;
 import com.baifc.licenseservice.service.LicenseFeignService;
 import com.baifc.licenseservice.service.LicenseRestService;
 import com.baifc.licenseservice.service.LicenseHystrixService;
+import com.baifc.licenseservice.utils.UserContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import java.util.List;
  * Auther: baifc
  * Description:
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/v1/organizations/{organizationId}/licenses")
 public class LicenseController {
@@ -59,6 +62,7 @@ public class LicenseController {
 
     @GetMapping(value = "/")
     public List<License> getLicenseByOrganizationId(@PathVariable("organizationId") String organizationId) {
+        log.info("LicenseController getLicenseByOrganizationId--CorrelationId: {} ", UserContextHolder.getUserContext().getCorrelationId());
         return licenseHystrixService.getLicensesByOrganizationId(organizationId);
     }
 
