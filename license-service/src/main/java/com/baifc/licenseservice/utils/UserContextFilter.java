@@ -12,7 +12,7 @@ import java.io.IOException;
  * packageName: com.baifc.licenseservice.utils
  * Created: 2019/8/26.
  * Auther: baifc
- * Description:
+ * Description: 拦截传入的http请求，是一个http servlet过滤器
  */
 @Slf4j
 @Component
@@ -22,6 +22,14 @@ public class UserContextFilter implements Filter {
 
     }
 
+    /**
+     * 拦截所有进入服务的http请求，并将关联ID从HTTP请求映射到UserContext中
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;

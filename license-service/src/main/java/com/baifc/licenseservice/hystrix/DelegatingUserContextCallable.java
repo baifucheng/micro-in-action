@@ -38,7 +38,6 @@ public class DelegatingUserContextCallable<V> implements Callable<V> {
         try {
             return delegate.call();
         } finally {
-            // TODO ? 为什么要置空
             userContext = null;
         }
     }

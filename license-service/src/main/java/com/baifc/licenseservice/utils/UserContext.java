@@ -7,7 +7,7 @@ import lombok.Data;
  * packageName: com.baifc.licenseservice.utils
  * Created: 2019/8/26.
  * Auther: baifc
- * Description:
+ * Description: 上下文pojo类
  */
 @Data
 public class UserContext {

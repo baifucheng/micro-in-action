@@ -7,7 +7,7 @@ import org.springframework.util.Assert;
  * packageName: com.baifc.licenseservice.utils
  * Created: 2019/8/26.
  * Auther: baifc
- * Description:
+ * Description: 用于存储UserContext实例，存储在ThreadLocal中
  */
 public class UserContextHolder {
 
