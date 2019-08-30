@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
+/**
+ * 访问/oauth/token端点可以获取令牌相关结果
+ */
 @SpringBootApplication
 // TODO 这个服务为什么要作为受保护的服务?
 @EnableResourceServer

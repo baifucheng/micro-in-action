@@ -28,8 +28,9 @@ public class UserController {
         Map<String, Object> userInfo = new HashMap<>();
 
         userInfo.put("user", user.getUserAuthentication().getPrincipal());
-        userInfo.put("authorites", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
+        userInfo.put("authorities", AuthorityUtils.authorityListToSet(user.getUserAuthentication().getAuthorities()));
 
+        System.out.println(userInfo);
         return userInfo;
     }
 }

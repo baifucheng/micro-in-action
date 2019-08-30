@@ -18,6 +18,9 @@ zuul:
   ignored-services: organization-service
   # 添加一个前缀
   prefix: /api
+  # zuul需要阻止的http传播的敏感首部
+  sensitive-headers: Cookie,Set-Cookie
+
 
 # hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds
 # 此属性可以为所有通过Zuul运行的服务设置Hystrix超时

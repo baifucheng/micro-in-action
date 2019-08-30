@@ -10,3 +10,15 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8901/user
+#      token-info-uri: http://localhost:8901/oauth/check_token
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.baifc: DEBUG

@@ -1,10 +1,7 @@
 package com.baifc.licenseservice.controller;
 
 import com.baifc.licenseservice.model.License;
-import com.baifc.licenseservice.service.LicenseDiscoveryService;
-import com.baifc.licenseservice.service.LicenseFeignService;
-import com.baifc.licenseservice.service.LicenseRestService;
-import com.baifc.licenseservice.service.LicenseHystrixService;
+import com.baifc.licenseservice.service.*;
 import com.baifc.licenseservice.utils.UserContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,9 @@ public class LicenseController {
     private LicenseRestService licenseRestService;
 
     @Autowired
+    private LicenseOAuth2Service licenseOAuth2Service;
+
+    @Autowired
     private LicenseFeignService licenseFeignService;
 
     @Autowired
@@ -53,11 +53,18 @@ public class LicenseController {
 //                .withOrganizationId("TestOrg");
 //    }
 
+//    @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
+//    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
+//                                          @PathVariable("licenseId") String licenseId) {
+//
+//        return licenseFeignService.getLicense(organizationId,licenseId);
+//    }
+
     @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
-    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
+    public License getLicensesWithAuth( @PathVariable("organizationId") String organizationId,
                                           @PathVariable("licenseId") String licenseId) {
 
-        return licenseFeignService.getLicense(organizationId,licenseId);
+        return licenseOAuth2Service.getLicense(organizationId,licenseId);
     }
 
     @GetMapping(value = "/")

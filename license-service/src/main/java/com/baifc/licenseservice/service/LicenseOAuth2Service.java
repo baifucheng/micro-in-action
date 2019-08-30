@@ -5,32 +5,23 @@ import com.baifc.licenseservice.model.Organization;
 import com.baifc.licenseservice.repository.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
- * projectName: spring-micro-in-action
+ * projectName: micro-in-action
  * packageName: com.baifc.licenseservice.service
- * Created: 2019-08-18.
+ * Created: 2019/8/30.
  * Auther: baifc
  * Description:
  */
 @Service
-public class LicenseRestService {
+public class LicenseOAuth2Service {
 
-//    @Value("${example.property}")
-//    private String exampleProperty;
-
-    @Qualifier("getRestTemplate")
     @Autowired
-    private RestTemplate restTemplate;
+    private OAuth2RestTemplate restTemplate;
 
     @Autowired
     private LicenseRepository licenseRepository;
@@ -39,17 +30,19 @@ public class LicenseRestService {
 
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
 
-        // 这里和使用普通的restTemplate有一些差异，
-        // 在使用支持Ribbon的RestTemplate时，使用Eureka服务ID来构建目标URL，这里的服务ID是organization-service
-        //
+        System.out.println("license = " + license);
+
+        // 使用支持OAuth2的resttemplat，构建方式和普通的restTemplate完全相同
         ResponseEntity<Organization> responseEntity = restTemplate
-                .exchange("http://organization-service/v1/organizations/{organizationId}", HttpMethod.GET, null, Organization.class, organizationId);
+                .exchange("http://localhost:8081/v1/organizations/{organizationId}",
+                        HttpMethod.GET, null, Organization.class, organizationId);
 
         Organization organization = responseEntity.getBody();
         if (organization == null) {
             System.out.println("organization is null");
             return null;
         }
+        System.out.println(organization);
         return license
                 .withOrganizationName(organization.getName())
                 .withContactName(organization.getContactName())

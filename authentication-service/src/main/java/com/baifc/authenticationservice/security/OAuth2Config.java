@@ -24,6 +24,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Qualifier("userDetailsServiceBean")
     @Autowired
     private UserDetailsService userDetailsService;
 
