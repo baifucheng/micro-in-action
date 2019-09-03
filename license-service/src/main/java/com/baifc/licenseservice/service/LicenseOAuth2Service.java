@@ -2,9 +2,8 @@ package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.model.Organization;
-import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.repository.db.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;

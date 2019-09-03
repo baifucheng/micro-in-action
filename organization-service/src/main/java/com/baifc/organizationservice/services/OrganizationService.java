@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Service
 public class OrganizationService {
+
     @Autowired
     private OrganizationRepository orgRepository;
 
@@ -17,9 +18,16 @@ public class OrganizationService {
     }
 
     public void saveOrg(Organization org){
-        org.setId( UUID.randomUUID().toString());
-
+        org.setId(UUID.randomUUID().toString());
         orgRepository.save(org);
+    }
 
+    public void updateOrg(Organization org) {
+        // TODO 省去验证逻辑
+        orgRepository.update(org);
+    }
+
+    public void deleteOrg(String orgId) {
+        orgRepository.delete(orgId);
     }
 }

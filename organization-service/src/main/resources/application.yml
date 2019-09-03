@@ -17,6 +17,17 @@ security:
       user-info-uri: http://localhost:8901/user
 #      token-info-uri: http://localhost:8901/oauth/check_token
 
+spring:
+  cloud:
+    stream:
+      binders:
+        output:
+          destination: orgChangeTopic
+          content-type: application/json
+      kafka:
+        binder:
+          brokers: 192.168.1.110
+
 logging:
   level:
     com.netflix: WARN

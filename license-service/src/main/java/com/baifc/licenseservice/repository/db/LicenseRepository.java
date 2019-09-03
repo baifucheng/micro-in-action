@@ -1,4 +1,4 @@
-package com.baifc.licenseservice.repository;
+package com.baifc.licenseservice.repository.db;
 
 import com.baifc.licenseservice.model.License;
 

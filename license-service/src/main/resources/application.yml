@@ -21,3 +21,21 @@ security:
       client-id: license
       client-secret: license
 
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 192.168.1.110
+      bindings:
+        input:
+          destination: orgChangeTopic
+          content-type: application/json
+  redis:
+    host: 192.168.1.110
+    port: 6379
+    password: wondeterk
+
+
+
+

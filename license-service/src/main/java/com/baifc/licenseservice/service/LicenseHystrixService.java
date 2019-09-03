@@ -1,7 +1,7 @@
 package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.model.License;
-import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.repository.db.LicenseRepository;
 import com.baifc.licenseservice.utils.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;

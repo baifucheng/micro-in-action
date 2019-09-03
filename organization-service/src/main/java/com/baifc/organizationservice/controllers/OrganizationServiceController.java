@@ -25,7 +25,7 @@ public class OrganizationServiceController {
         return org;
     }
 
-    @RequestMapping(value="/{organizationId}",method = RequestMethod.POST)
+    @RequestMapping(value="/", method = RequestMethod.POST)
     public void saveOrganization(@RequestBody Organization org) {
        orgService.saveOrg( org );
     }
@@ -33,9 +33,15 @@ public class OrganizationServiceController {
     @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
     public Map<String, String> deleteOrganization(@PathVariable("organizationId") String organizationId) {
         System.out.println("deleteOrganization = " + organizationId);
+        orgService.deleteOrg(organizationId);
         Map<String, String> map = new HashMap<>();
         map.put("200", "成功");
         return map;
+    }
+
+    @PutMapping(value = "/")
+    public void updateOrganization(@RequestBody Organization org) {
+        orgService.updateOrg(org);
     }
 
 }
