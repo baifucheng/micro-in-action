@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * projectName: micro-in-action
@@ -21,7 +22,10 @@ import org.springframework.stereotype.Service;
 public class LicenseOAuth2Service {
 
     @Autowired
-    private OAuth2RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+
+//    @Autowired
+//    private OAuth2RestTemplate restTemplate;
 
     @Autowired
     private LicenseRepository licenseRepository;

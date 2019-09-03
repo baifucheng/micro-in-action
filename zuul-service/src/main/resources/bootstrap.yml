@@ -12,3 +12,9 @@ management:
         #  注意这里*要加引号，暴露全部，也可以只暴露相应endpoint
         include: "*"
 #    include: refresh,health,
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.baifc: DEBUG

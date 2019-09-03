@@ -1,4 +1,4 @@
-package com.baifc.authenticationservice.security;
+package com.baifc.jwtservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,31 +8,45 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.Arrays;
 
 /**
  * projectName: spring-micro-in-action
- * packageName: com.baifc.authenticationservice.security
- * Created: 2019-08-29.
+ * packageName: com.baifc.jwtservice.security
+ * Created: 2019-08-31.
  * Auther: baifc
- * Description: 定义通过OAuth2验证服务注册哪些应用程序
- *  AuthorizationServerConfigurerAdapter是spring security的核心部分，它提供了执行管件的验证和授权功能的基本机制
+ * Description:
  */
 @Configuration
-public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+public class JWTOAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
 
     @Qualifier("userDetailsServiceBean")
     @Autowired
     private UserDetailsService userDetailsService;
 
-    /**
-     * 该方法定义了哪些客户端将注册到服务
-     * @param clients
-     * @throws Exception
-     */
+    @Autowired
+    private TokenStore tokenStore;
+
+//    @Autowired
+//    private DefaultTokenServices tokenServices;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Autowired
+    private JWTTokenEnhancer jwtTokenEnhancer;
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
@@ -57,16 +71,22 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .scopes("webclient", "mobileclient");
     }
 
-    /**
-     * 该方法定义了AuthenticationServerConfigurer中使用的不同组件
-     *  告诉spring使用spring提供的默认管理验证器，和用户详细信息服务
-     * @param endpoints
-     * @throws Exception
-     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(
+                Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter)
+        );
+
         endpoints
+                .tokenStore(tokenStore)
+                // 这是钩子，告诉spring security OAuth2使用JWT
+                .accessTokenConverter(jwtAccessTokenConverter)
                 .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .tokenEnhancer(tokenEnhancerChain);
     }
+
+
 }

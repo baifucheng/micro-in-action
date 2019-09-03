@@ -3,10 +3,15 @@ package com.baifc.zuulservice.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
+import jdk.internal.instrumentation.ClassInstrumentation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
@@ -72,10 +77,33 @@ public class TrackingFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         log.debug("Processing incoming request for {}.",  ctx.getRequest().getRequestURI());
+
+        log.debug("--auther is " + getAuther());
+
         return null;
     }
 
     private String generaterCorrelationId() {
         return UUID.randomUUID().toString();
+    }
+
+    private String getAuther() {
+        String result = "";
+        String token = filterUtils.getAuthToken();
+        log.debug("token = " + token);
+        if (token != null) {
+            if (!token.toLowerCase().startsWith("bearer".toLowerCase())) {
+                return result;
+            }
+            String authToken = filterUtils.getAuthToken().substring("bearer".length()).trim();
+
+            Claims claims = Jwts.parser()
+                    .setSigningKey("baifc".getBytes(StandardCharsets.UTF_8))
+                    .parseClaimsJws(authToken)
+                    .getBody();
+
+            return (String)claims.get("auther");
+        }
+        return result;
     }
 }

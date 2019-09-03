@@ -1,76 +1,30 @@
 package com.baifc.licenseservice.controller;
 
 import com.baifc.licenseservice.model.License;
-import com.baifc.licenseservice.service.*;
-import com.baifc.licenseservice.utils.UserContextHolder;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * projectName: license-service
+ * projectName: spring-micro-in-action
  * packageName: com.baifc.licenseservice.controller
- * Created: 2019-08-12.
+ * Created: 2019-08-31.
  * Auther: baifc
  * Description:
  */
-@Slf4j
 @RestController
-@RequestMapping(value = "/v1/organizations/{organizationId}/licenses")
+@RequestMapping(value = "/v1/license")
 public class LicenseController {
 
-//    @Value("${example.property}")
-//    private String exampleProperty;
-
-    @Autowired
-    private LicenseDiscoveryService licenseDiscoveryService;
-
-    @Autowired
-    private LicenseRestService licenseRestService;
-
-    @Autowired
-    private LicenseOAuth2Service licenseOAuth2Service;
-
-    @Autowired
-    private LicenseFeignService licenseFeignService;
-
-    @Autowired
-    private LicenseHystrixService licenseHystrixService;
-
-//    @RequestMapping(value = "/{licenseId}", method = RequestMethod.GET)
-//    public License getLicense(
-//            @PathVariable("organizationId") String organizationId,
-//            @PathVariable("licenseId")String licenseId) {
-//
-//        System.out.println("exampleProperty = " + exampleProperty);
-//        return  new License()
-//                .withId(licenseId)
-//                .withOrganizationId(organizationId)
-//                .withProductName("Teleco")
-//                .withLicenseType("Seat")
-//                .withOrganizationId("TestOrg");
-//    }
-
-//    @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
-//    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
-//                                          @PathVariable("licenseId") String licenseId) {
-//
-//        return licenseFeignService.getLicense(organizationId,licenseId);
-//    }
-
-    @RequestMapping(value="/{licenseId}",method = RequestMethod.GET)
-    public License getLicensesWithAuth( @PathVariable("organizationId") String organizationId,
-                                          @PathVariable("licenseId") String licenseId) {
-
-        return licenseOAuth2Service.getLicense(organizationId,licenseId);
+    @RequestMapping(value = "/{licenseId}")
+    public License getLicense(@PathVariable("licenseId") String licenseId) {
+        License license1 = new License();
+        license1.setLicenseId(licenseId);
+        license1.setOrganizationId("organizationId-111");
+        license1.setProductName("apple1");
+        return license1;
     }
-
-    @GetMapping(value = "/")
-    public List<License> getLicenseByOrganizationId(@PathVariable("organizationId") String organizationId) {
-        log.info("LicenseController getLicenseByOrganizationId--CorrelationId: {} ", UserContextHolder.getUserContext().getCorrelationId());
-        return licenseHystrixService.getLicensesByOrganizationId(organizationId);
-    }
-
 }
