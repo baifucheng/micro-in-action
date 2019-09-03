@@ -3,7 +3,7 @@ package com.baifc.licenseservice.service;
 import com.baifc.licenseservice.client.OrganizationFeignClient;
 import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.model.Organization;
-import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.repository.db.LicenseRepository;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;

@@ -2,14 +2,12 @@ package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.model.Organization;
-import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.repository.db.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

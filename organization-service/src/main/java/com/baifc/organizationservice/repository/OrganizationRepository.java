@@ -18,4 +18,12 @@ public class OrganizationRepository  {
     public void save(Organization org) {
 
     }
+
+    public void update(Organization org) {
+
+    }
+
+    public void delete(String orgId) {
+
+    }
 }

@@ -2,18 +2,13 @@ package com.baifc.licenseservice.service;
 
 import com.baifc.licenseservice.model.License;
 import com.baifc.licenseservice.model.Organization;
-import com.baifc.licenseservice.repository.LicenseRepository;
+import com.baifc.licenseservice.repository.db.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * projectName: spring-micro-in-action
