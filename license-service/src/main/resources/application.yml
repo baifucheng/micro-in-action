@@ -10,16 +10,17 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://localhost:8901/user
-#      token-info-uri: http://localhost:8901/oauth/check_token
-    client:
-      access-token-uri: http://localhost:8901/oauth/token
-      user-authorization-uri: http://localhost:8901/oauth/authorize
-      client-id: license
-      client-secret: license
+# TODO 该配置是spring security用于服务授权的配置，为了便于测试，将配置注释，若要权限服务支持，需要将该配置打开
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://localhost:8901/user
+##      token-info-uri: http://localhost:8901/oauth/check_token
+#    client:
+#      access-token-uri: http://localhost:8901/oauth/token
+#      user-authorization-uri: http://localhost:8901/oauth/authorize
+#      client-id: license
+#      client-secret: license
 
 spring:
   cloud:
@@ -34,7 +35,7 @@ spring:
   redis:
     host: 192.168.1.110
     port: 6379
-    password: wondeterk
+    password: wondertek
 
 
 

@@ -6,8 +6,8 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+//import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+//import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
 // 启用DiscoveryClient
@@ -17,8 +17,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 // 启动熔断器
 @EnableCircuitBreaker
 // 这是一个被保护的服务
-@EnableResourceServer
-@EnableOAuth2Client
+//@EnableResourceServer
+//@EnableOAuth2Client
 public class LicenseServiceApplication {
 
     public static void main(String[] args) {

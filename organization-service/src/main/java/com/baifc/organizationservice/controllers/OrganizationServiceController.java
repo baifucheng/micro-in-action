@@ -17,7 +17,7 @@ public class OrganizationServiceController {
     private OrganizationService orgService;
 
 
-    @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
+    @GetMapping(value="/{organizationId}")
     public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
         System.out.println("organizationId = " + organizationId);
         Organization org = orgService.getOrg(organizationId);
@@ -25,12 +25,12 @@ public class OrganizationServiceController {
         return org;
     }
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
+    @PostMapping(value="/")
     public void saveOrganization(@RequestBody Organization org) {
        orgService.saveOrg( org );
     }
 
-    @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
+    @DeleteMapping(value="/{organizationId}")
     public Map<String, String> deleteOrganization(@PathVariable("organizationId") String organizationId) {
         System.out.println("deleteOrganization = " + organizationId);
         orgService.deleteOrg(organizationId);
