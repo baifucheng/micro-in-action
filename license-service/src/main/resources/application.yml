@@ -28,14 +28,23 @@ spring:
       kafka:
         binder:
           brokers: 192.168.1.110
+          auto-create-topics: true
       bindings:
+        # 该属性将input通道映射到orgChangeTopic的队列中
         input:
           destination: orgChangeTopic
           content-type: application/json
+          group: license-service
   redis:
     host: 192.168.1.110
     port: 6379
     password: wondertek
+
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.baifc: DEBUG
 
 
 

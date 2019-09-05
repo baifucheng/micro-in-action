@@ -20,13 +20,20 @@ security:
 spring:
   cloud:
     stream:
-      binders:
-        output:
-          destination: orgChangeTopic
-          content-type: application/json
+      # 将使用kafka作为消息总线
       kafka:
         binder:
+          # 告诉kafka的网络位置（旧版本的spring cloud好像还需要配置zkNode，Greenwich版本貌似不需要）
           brokers: 192.168.1.110
+          auto-create-topics: true
+      # TODO binders 和 bindings有什么区别，为什么binders不能发布消息
+      # bindings是用于服务将消息发布到spring cloud stream消息代理
+      bindings:
+        # output是通道的名称，映射到EnableBinding()中的设置
+        output:
+          # 写入消息的消息队列名称（或主题）
+          destination: orgChangeTopic
+          content-type: application/json
 
 logging:
   level:

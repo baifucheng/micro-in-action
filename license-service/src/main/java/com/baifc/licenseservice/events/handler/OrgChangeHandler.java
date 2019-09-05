@@ -14,7 +14,7 @@ import org.springframework.cloud.stream.messaging.Sink;
  * packageName: com.baifc.licenseservice.events.handler
  * Created: 2019/9/3.
  * Auther: baifc
- * Description:
+ * Description: 这是一个接收器，@EnableBinding告诉服务使用Sink接口中定义的通道来进行消息的监听
  */
 @Slf4j
 @EnableBinding(Sink.class)

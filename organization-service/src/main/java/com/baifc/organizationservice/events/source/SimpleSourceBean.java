@@ -2,9 +2,12 @@ package com.baifc.organizationservice.events.source;
 
 import com.baifc.organizationservice.events.model.OrganizationChangeModel;
 import com.baifc.organizationservice.utils.UserContext;
+import com.baifc.organizationservice.utils.UserContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
+// 告诉spring cloud stream将应用程序绑定到消息代理，该服务将通过source类定义的一组消息通道和消息代理进行通信
+@EnableBinding(Source.class)
 public class SimpleSourceBean {
 
     /**
@@ -33,11 +38,12 @@ public class SimpleSourceBean {
                 OrganizationChangeModel.class.getTypeName(),
                 action,
                 orgId,
-                UserContext.CORRELATION_ID
+                UserContextHolder.getUserContext().getCorrelationId()
         );
 
         // 当要发布消息时，使用source类中定义的通道的send方法
-        source.output().send(MessageBuilder.withPayload(model).build());
+        Message<OrganizationChangeModel> message = MessageBuilder.withPayload(model).build();
+        source.output().send(message);
     }
 
 }

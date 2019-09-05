@@ -35,6 +35,6 @@ public class UserContextInterceptor implements ClientHttpRequestInterceptor {
         // 为传出的服务调用准备HTTP请求首部，并添加存储在UserContext中的关联ID
         headers.add(UserContext.CORRELATION_ID, UserContextHolder.getUserContext().getCorrelationId());
         headers.add(UserContext.AUTH_TOKEN, UserContextHolder.getUserContext().getAuthToken());
-        return null;
+        return clientHttpRequestExecution.execute(httpRequest, bytes);
     }
 }

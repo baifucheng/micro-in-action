@@ -13,7 +13,7 @@ import java.io.IOException;
  * packageName: com.baifc.licenseservice.utils
  * Created: 2019/8/26.
  * Auther: baifc
- * Description: 将关联ID注入基于HTTP的传出服务请求中，这些服务由RestTemplate实例执行，可以连理服务之间调用的关系
+ * Description: ClientHttpRequestInterceptor可以对请求进行拦截，并在发送至服务端之前对请求进行修改和增强相应的信息
  *  为了使用UserContextInterceptor，需要我们定义一个RestTemplate的bean，然后将UserContextInterceptor添加进去
  */
 public class UserContextInterceptor implements ClientHttpRequestInterceptor {
@@ -35,6 +35,6 @@ public class UserContextInterceptor implements ClientHttpRequestInterceptor {
         // 为传出的服务调用准备HTTP请求首部，并添加存储在UserContext中的关联ID
         headers.add(UserContext.CORRELATION_ID, UserContextHolder.getUserContext().getCorrelationId());
         headers.add(UserContext.AUTH_TOKEN, UserContextHolder.getUserContext().getAuthToken());
-        return null;
+        return clientHttpRequestExecution.execute(httpRequest, bytes);
     }
 }
