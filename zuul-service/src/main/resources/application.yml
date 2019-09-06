@@ -1,3 +1,12 @@
+spring:
+  zipkin:
+    base-url: http://localhost:9411
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
+
 eureka:
   instance:
     # 注册服务IP，而不是服务器名称
@@ -36,6 +45,10 @@ hystrix:
 # 上面配置覆盖了Hystrix超时，但是Ribbon同样也会对超过5s的调用进行超时处理
 # 可以通过设置属性servicename.ribbon.ReadTimeout 来覆盖Ribbon超时
 organization-service:
+  ribbon:
+    ReadTimeout: 7000
+
+license-service:
   ribbon:
     ReadTimeout: 7000
 

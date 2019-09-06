@@ -56,6 +56,8 @@ public class LicenseOAuth2Service {
             }
             organizationRedisRepository.saveOrganization(organization);
             log.info("已成功缓存" + organization.getName() + "的数据");
+        } else {
+            log.info("读取缓存[" + organization.getName() + "]的数据");
         }
         System.out.println(organization);
 

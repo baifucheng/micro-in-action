@@ -1,6 +1,7 @@
 package com.baifc.licenseservice.controller;
 
 import com.baifc.licenseservice.model.License;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/v1/license")
 public class LicenseController {
 
-    @RequestMapping(value = "/{licenseId}")
+    @GetMapping(value = "/{licenseId}")
     public License getLicense(@PathVariable("licenseId") String licenseId) {
         License license1 = new License();
         license1.setLicenseId(licenseId);
